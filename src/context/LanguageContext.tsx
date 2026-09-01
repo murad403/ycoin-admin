@@ -121,6 +121,26 @@ type Translations = {
   confirmNewPasswordPlaceholder: string;
   updatePasswordButton: string;
 
+  // Knowledge Base Page & Components
+  aiKbManagementTitle: string;
+  aiKbManagementDesc: string;
+  uploadNewKbDocTitle: string;
+  uploadNewKbDocDesc: string;
+  documentTitleLabel: string;
+  documentTitlePlaceholder: string;
+  formatLabel: string;
+  knowledgeTextContentLabel: string;
+  knowledgeTextContentPlaceholder: string;
+  saveKnowledgeEntry: string;
+  indexedKbDocsTitle: string;
+  indexedKbDocsDesc: string;
+  searchDocsPlaceholder: string;
+  tableDocTitle: string;
+  tableFormat: string;
+  tablePayloadSize: string;
+  tableIndexedDate: string;
+  noIndexedDocsFound: string;
+
   // Recent Documents & Modals
   recentKbDocs: string;
   viewAll: string;
@@ -199,16 +219,16 @@ const translations: Record<Language, Translations> = {
     alertsCategory: 'Alerts',
     discoverCategory: 'Discover',
     notificationTitleLabel: 'Notification Title *',
-    notificationTitlePlaceholder: 'e.g. ⚡ Bitcoin Volatility Spike: BTC Surges Past $98,000',
+    notificationTitlePlaceholder: 'e.g. ⚡ Bitcoin Volatility Trigger: BTC Surges Past $98,000',
     pushMessageLabel: 'Push Notification Message *',
     pushMessagePlaceholder: 'Write your broadcast message content here...',
     broadcastNowButton: 'Broadcast Bulk Push Notification Now',
-    livePreviewTitle: 'LIVE PUSH NOTIFICATION PREVIEW',
+    livePreviewTitle: 'Live Push Notification Preview',
     livePreviewBadge: 'LIVE PREVIEW',
-    livePreviewDesc: 'How this push notification will render in user terminal feed & top bell drawer:',
+    livePreviewDesc: 'How this push notification renders inside user terminal feeds & header bell drawers:',
     justNow: 'Just now',
     sampleTitlePlaceholder: '⚡ Sample Push Notification Title...',
-    sampleMessagePlaceholder: 'Write your broadcast message content on the left to see the live rendering preview.',
+    sampleMessagePlaceholder: 'Write your broadcast message content on the left to see live render preview.',
     targetLabel: 'Target:',
     targetValue: 'All Platform Users',
     viewAlertButton: 'View Alert',
@@ -216,7 +236,7 @@ const translations: Record<Language, Translations> = {
     estimatedReachDesc: '4 Active Platform Nodes',
     reachPercent: '100% Reach',
     historyTitle: 'Sent Bulk Notifications Broadcast History',
-    historyDesc: 'View, verify recipient stats, or delete past push broadcast records.',
+    historyDesc: 'Review, verify recipient stats, or remove past push broadcast logs.',
     broadcastsCount: '3 Broadcasts',
     tableCategoryUrgency: 'CATEGORY & URGENCY',
     tableTitleContent: 'TITLE & MESSAGE CONTENT',
@@ -227,10 +247,10 @@ const translations: Record<Language, Translations> = {
 
     // Account & Security / Legal Editor
     legalEditorTitle: 'Legal Policies & Terms Editor',
-    legalEditorDesc: 'Edit, update, or delete site Terms of Service and Privacy Policy.',
+    legalEditorDesc: 'Edit, update, or clear terms of service and privacy policy documents.',
     termsOfService: 'Terms of Service',
     privacyPolicy: 'Privacy Policy',
-    editPolicyClauses: 'EDIT POLICY CONTENT CLAUSES',
+    editPolicyClauses: 'Edit Policy Clauses & Content',
     characters: 'characters',
     deleteClearTerms: 'Delete & Clear Terms',
     savePublishPolicy: 'Save & Publish Policy',
@@ -239,10 +259,10 @@ const translations: Record<Language, Translations> = {
 
     // Administrator Details
     adminDetailsTitle: 'Administrator Details',
-    adminDetailsDesc: 'Update display name and title',
+    adminDetailsDesc: 'Update profile display name and title',
     nameLabel: 'Name',
     adminEmailLabel: 'Admin Email Address',
-    emailLocked: '🔒 LOCKED (EMAIL CANNOT BE CHANGED)',
+    emailLocked: '🔒 Locked (email cannot be modified)',
     protocolTitleLabel: 'Protocol Title',
     bioLabel: 'Bio / Description',
     saveProfileDetails: 'Save Profile Details',
@@ -257,15 +277,35 @@ const translations: Record<Language, Translations> = {
     confirmNewPasswordPlaceholder: 'Confirm new password',
     updatePasswordButton: 'Update Password',
 
+    // Knowledge Base Page & Components
+    aiKbManagementTitle: 'AI Knowledge Base Management',
+    aiKbManagementDesc: 'Upload PDF, Word, or text documents to train the AI agent in real-time. Changes reflect instantly.',
+    uploadNewKbDocTitle: 'Upload New Knowledge Document',
+    uploadNewKbDocDesc: 'Upload PDFs, Word documents, Markdown, or write knowledge entries directly.',
+    documentTitleLabel: 'DOCUMENT TITLE',
+    documentTitlePlaceholder: 'e.g. YCOIN Tokenomics & Node Rewards',
+    formatLabel: 'FORMAT',
+    knowledgeTextContentLabel: 'KNOWLEDGE TEXT CONTENT',
+    knowledgeTextContentPlaceholder: 'Type or paste markdown content here...',
+    saveKnowledgeEntry: 'Save Knowledge Entry',
+    indexedKbDocsTitle: 'Indexed Knowledge Documents',
+    indexedKbDocsDesc: 'Manage indexed knowledge files.',
+    searchDocsPlaceholder: 'Search documents...',
+    tableDocTitle: 'DOCUMENT TITLE',
+    tableFormat: 'FORMAT',
+    tablePayloadSize: 'PAYLOAD SIZE',
+    tableIndexedDate: 'INDEXED DATE',
+    noIndexedDocsFound: 'No indexed knowledge documents found.',
+
     // Recent Documents & Modals
-    recentKbDocs: 'Recent Knowledge Base Documents',
+    recentKbDocs: 'Recent Knowledge Base Docs',
     viewAll: 'View All →',
-    inspectContentPayload: 'INSPECT CONTENT PAYLOAD:',
+    inspectContentPayload: 'Inspect Content Payload:',
     closeInspector: 'Close Inspector',
-    docId: 'Doc ID:',
-    totalLength: 'Total Length:',
-    fileSize: 'File Size:',
-    uploadedBy: 'Uploaded By:',
+    docId: 'DOC ID:',
+    totalLength: 'TOTAL LENGTH:',
+    fileSize: 'FILE SIZE:',
+    uploadedBy: 'UPLOADED BY:',
     recentRegisteredUsers: 'Recent Registered Users',
     removeUserAccount: 'Remove User Account?',
     removeUserDesc: 'Are you sure you want to remove this user account from the YCOIN platform?',
@@ -382,14 +422,34 @@ const translations: Record<Language, Translations> = {
     saveProfileDetails: '保存个人资料',
 
     // Change Password
-    changePasswordTitle: 'Change Password',
-    changePasswordDesc: 'Update account password',
-    currentPasswordLabel: 'CURRENT PASSWORD',
-    newPasswordLabel: 'NEW PASSWORD',
-    newPasswordPlaceholder: 'At least 6 characters',
-    confirmNewPasswordLabel: 'CONFIRM NEW PASSWORD',
-    confirmNewPasswordPlaceholder: 'Confirm new password',
-    updatePasswordButton: 'Update Password',
+    changePasswordTitle: '修改密码',
+    changePasswordDesc: '更新账户密码',
+    currentPasswordLabel: '当前密码',
+    newPasswordLabel: '新密码',
+    newPasswordPlaceholder: '至少 6 个字符',
+    confirmNewPasswordLabel: '确认新密码',
+    confirmNewPasswordPlaceholder: '确认新密码',
+    updatePasswordButton: '更新密码',
+
+    // Knowledge Base Page & Components
+    aiKbManagementTitle: 'AI 知识库管理',
+    aiKbManagementDesc: '上传 PDF、Word 或文本文档以实时训练 AI 代理。更改即时生效。',
+    uploadNewKbDocTitle: '上传新知识文档',
+    uploadNewKbDocDesc: '上传 PDF、Word 文档、Markdown 或直接撰写知识条目。',
+    documentTitleLabel: '文档标题',
+    documentTitlePlaceholder: '例如 YCOIN 代币经济学与节点奖励',
+    formatLabel: '格式',
+    knowledgeTextContentLabel: '知识文本内容',
+    knowledgeTextContentPlaceholder: '在此处键入或粘贴 markdown 内容...',
+    saveKnowledgeEntry: '保存知识条目',
+    indexedKbDocsTitle: '已索引的知识文档',
+    indexedKbDocsDesc: '管理已索引的知识文件。',
+    searchDocsPlaceholder: '搜索文档...',
+    tableDocTitle: '文档标题',
+    tableFormat: '格式',
+    tablePayloadSize: '有效载荷大小',
+    tableIndexedDate: '索引日期',
+    noIndexedDocsFound: '未找到已索引的知识文档。',
 
     // Recent Documents & Modals
     recentKbDocs: '最近的知识库文档',

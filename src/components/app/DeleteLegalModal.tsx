@@ -11,12 +11,7 @@ interface DeleteLegalModalProps {
   policyName?: string;
 }
 
-const DeleteLegalModal = ({
-  isOpen,
-  onClose,
-  onConfirm,
-  policyName = 'Terms of Service',
-}: DeleteLegalModalProps) => {
+const DeleteLegalModal = ({ isOpen, onClose, onConfirm, policyName = 'Terms of Service' }: DeleteLegalModalProps) => {
   const { t } = useLanguage();
 
   if (!isOpen) return null;

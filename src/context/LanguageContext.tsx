@@ -17,7 +17,7 @@ type Translations = {
   administrator: string;
   logout: string;
 
-  // Header
+  // Header & Page Titles
   systemOverview: string;
   systemOverviewDesc: string;
   refreshOverview: string;
@@ -25,6 +25,8 @@ type Translations = {
   bulkPushSystemTitle: string;
   bulkPushSystemDesc: string;
   refreshFeed: string;
+  systemSettingsTitle: string;
+  systemSettingsDesc: string;
 
   // Stats & Badges
   knowledgeBaseDocs: string;
@@ -54,7 +56,7 @@ type Translations = {
   tableJoined: string;
   tableActions: string;
 
-  // Bulk Push Notification Specific
+  // Bulk Push Notification
   composeTitle: string;
   composeDesc: string;
   pushCategory: string;
@@ -86,6 +88,38 @@ type Translations = {
   tableRecipients: string;
   tableSentDate: string;
   tableAction: string;
+
+  // Account & Security / Legal Editor
+  legalEditorTitle: string;
+  legalEditorDesc: string;
+  termsOfService: string;
+  privacyPolicy: string;
+  editPolicyClauses: string;
+  characters: string;
+  deleteClearTerms: string;
+  savePublishPolicy: string;
+  deleteLegalTitle: string;
+  deleteAndClear: string;
+
+  // Administrator Details
+  adminDetailsTitle: string;
+  adminDetailsDesc: string;
+  nameLabel: string;
+  adminEmailLabel: string;
+  emailLocked: string;
+  protocolTitleLabel: string;
+  bioLabel: string;
+  saveProfileDetails: string;
+
+  // Change Password
+  changePasswordTitle: string;
+  changePasswordDesc: string;
+  currentPasswordLabel: string;
+  newPasswordLabel: string;
+  newPasswordPlaceholder: string;
+  confirmNewPasswordLabel: string;
+  confirmNewPasswordPlaceholder: string;
+  updatePasswordButton: string;
 
   // Recent Documents & Modals
   recentKbDocs: string;
@@ -119,7 +153,7 @@ const translations: Record<Language, Translations> = {
     administrator: 'YCOIN Administrator',
     logout: 'Logout',
 
-    // Header
+    // Header & Page Titles
     systemOverview: 'System Overview',
     systemOverviewDesc: 'Summary overview of AI knowledge base documents, registered users, active nodes, and AI core health.',
     refreshOverview: 'Refresh Overview',
@@ -127,6 +161,8 @@ const translations: Record<Language, Translations> = {
     bulkPushSystemTitle: 'Bulk Push Notification System',
     bulkPushSystemDesc: 'Broadcast real-time push notifications and alerts to Discover and Alert systems across all active users.',
     refreshFeed: 'Refresh Feed',
+    systemSettingsTitle: 'System Settings & Legal Policies',
+    systemSettingsDesc: 'Manage, edit, publish, or delete Terms of Service and Privacy Policy, and update admin credentials.',
 
     // Stats & Badges
     knowledgeBaseDocs: 'Knowledge Base Docs',
@@ -156,7 +192,7 @@ const translations: Record<Language, Translations> = {
     tableJoined: 'JOINED',
     tableActions: 'ACTIONS',
 
-    // Bulk Push Notification Specific
+    // Bulk Push Notification
     composeTitle: 'Compose & Broadcast Push Notification',
     composeDesc: 'Target specific categories (Discover / Alerts) and broadcast instant alerts.',
     pushCategory: 'Push Category',
@@ -189,6 +225,38 @@ const translations: Record<Language, Translations> = {
     tableSentDate: 'SENT DATE',
     tableAction: 'ACTION',
 
+    // Account & Security / Legal Editor
+    legalEditorTitle: 'Legal Policies & Terms Editor',
+    legalEditorDesc: 'Edit, update, or delete site Terms of Service and Privacy Policy.',
+    termsOfService: 'Terms of Service',
+    privacyPolicy: 'Privacy Policy',
+    editPolicyClauses: 'EDIT POLICY CONTENT CLAUSES',
+    characters: 'characters',
+    deleteClearTerms: 'Delete & Clear Terms',
+    savePublishPolicy: 'Save & Publish Policy',
+    deleteLegalTitle: 'Delete Legal Policy?',
+    deleteAndClear: 'Delete & Clear',
+
+    // Administrator Details
+    adminDetailsTitle: 'Administrator Details',
+    adminDetailsDesc: 'Update display name and title',
+    nameLabel: 'Name',
+    adminEmailLabel: 'Admin Email Address',
+    emailLocked: '🔒 LOCKED (EMAIL CANNOT BE CHANGED)',
+    protocolTitleLabel: 'Protocol Title',
+    bioLabel: 'Bio / Description',
+    saveProfileDetails: 'Save Profile Details',
+
+    // Change Password
+    changePasswordTitle: 'Change Password',
+    changePasswordDesc: 'Update account password',
+    currentPasswordLabel: 'CURRENT PASSWORD',
+    newPasswordLabel: 'NEW PASSWORD',
+    newPasswordPlaceholder: 'At least 6 characters',
+    confirmNewPasswordLabel: 'CONFIRM NEW PASSWORD',
+    confirmNewPasswordPlaceholder: 'Confirm new password',
+    updatePasswordButton: 'Update Password',
+
     // Recent Documents & Modals
     recentKbDocs: 'Recent Knowledge Base Documents',
     viewAll: 'View All →',
@@ -219,7 +287,7 @@ const translations: Record<Language, Translations> = {
     administrator: 'YCOIN 管理员',
     logout: '退出登录',
 
-    // Header
+    // Header & Page Titles
     systemOverview: '系统概览',
     systemOverviewDesc: 'AI知识库文档、注册用户、活动节点和AI核心健康状况的总结概览。',
     refreshOverview: '刷新概览',
@@ -227,6 +295,8 @@ const translations: Record<Language, Translations> = {
     bulkPushSystemTitle: '批量推送通知系统',
     bulkPushSystemDesc: '向所有活动用户广播实时推送通知和警报到探索与警报系统。',
     refreshFeed: '刷新源',
+    systemSettingsTitle: '系统设置与法律政策',
+    systemSettingsDesc: '管理、编辑、发布或删除服务条款与隐私政策，并更新管理员凭据。',
 
     // Stats & Badges
     knowledgeBaseDocs: '知识库文档',
@@ -256,7 +326,7 @@ const translations: Record<Language, Translations> = {
     tableJoined: '加入时间',
     tableActions: '操作',
 
-    // Bulk Push Notification Specific
+    // Bulk Push Notification
     composeTitle: '撰写并广播推送通知',
     composeDesc: '针对特定类别（探索 / 警报）并广播即时警报。',
     pushCategory: '推送类别',
@@ -288,6 +358,38 @@ const translations: Record<Language, Translations> = {
     tableRecipients: '接收者',
     tableSentDate: '发送日期',
     tableAction: '操作',
+
+    // Account & Security / Legal Editor
+    legalEditorTitle: '法律政策与条款编辑器',
+    legalEditorDesc: '编辑、更新或删除网站服务条款和隐私政策。',
+    termsOfService: '服务条款',
+    privacyPolicy: '隐私政策',
+    editPolicyClauses: '编辑政策内容条款',
+    characters: '字符',
+    deleteClearTerms: '删除并清空条款',
+    savePublishPolicy: '保存并发布政策',
+    deleteLegalTitle: '删除法律政策？',
+    deleteAndClear: '删除并清空',
+
+    // Administrator Details
+    adminDetailsTitle: '管理员详细信息',
+    adminDetailsDesc: '更新显示名称和头衔',
+    nameLabel: '姓名',
+    adminEmailLabel: '管理员邮箱地址',
+    emailLocked: '🔒 已锁定（邮箱不能修改）',
+    protocolTitleLabel: '协议头衔',
+    bioLabel: '简介 / 描述',
+    saveProfileDetails: '保存个人资料',
+
+    // Change Password
+    changePasswordTitle: 'Change Password',
+    changePasswordDesc: 'Update account password',
+    currentPasswordLabel: 'CURRENT PASSWORD',
+    newPasswordLabel: 'NEW PASSWORD',
+    newPasswordPlaceholder: 'At least 6 characters',
+    confirmNewPasswordLabel: 'CONFIRM NEW PASSWORD',
+    confirmNewPasswordPlaceholder: 'Confirm new password',
+    updatePasswordButton: 'Update Password',
 
     // Recent Documents & Modals
     recentKbDocs: '最近的知识库文档',

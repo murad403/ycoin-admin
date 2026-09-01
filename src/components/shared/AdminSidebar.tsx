@@ -26,19 +26,16 @@ const AdminSidebar = ({ isMobileOpen = false, onCloseMobile, onOpenLogoutModal }
       name: t.knowledgeBase,
       href: '/knowledge-base',
       icon: BookOpen,
-      badge: '3',
     },
     {
       name: t.userManagement,
       href: '/user-management',
       icon: Users,
-      badge: '5',
     },
     {
       name: t.bulkPushNotifications,
       href: '/bulk-push-notifications',
       icon: Bell,
-      badge: '3',
     },
     {
       name: t.accountSecurity,
@@ -143,17 +140,6 @@ const AdminSidebar = ({ isMobileOpen = false, onCloseMobile, onOpenLogoutModal }
                     />
                     <span>{item.name}</span>
                   </div>
-
-                  {item.badge && (
-                    <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${isActive
-                        ? 'bg-[#0071E3] text-white'
-                        : 'bg-[#111A2E] text-gray-400 border border-border-color'
-                        }`}
-                    >
-                      {item.badge}
-                    </span>
-                  )}
                 </Link>
               );
             })}

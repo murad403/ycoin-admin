@@ -21,6 +21,7 @@ type Translations = {
   systemOverview: string;
   systemOverviewDesc: string;
   refreshOverview: string;
+  userManagementDesc: string;
 
   // Stats
   knowledgeBaseDocs: string;
@@ -35,6 +36,20 @@ type Translations = {
   liveRagActive: string;
   active: string;
   pending: string;
+  suspended: string;
+  all: string;
+
+  // User Management Specific
+  totalPlatformUsers: string;
+  activeValidators: string;
+  totalStakedYcoin: string;
+  searchUserPlaceholder: string;
+  tableUser: string;
+  tableRole: string;
+  tableStatus: string;
+  tableStakedSY: string;
+  tableJoined: string;
+  tableActions: string;
 
   // Recent Documents
   recentKbDocs: string;
@@ -74,6 +89,7 @@ const translations: Record<Language, Translations> = {
     systemOverview: 'System Overview',
     systemOverviewDesc: 'Summary overview of AI knowledge base documents, registered users, active nodes, and AI core health.',
     refreshOverview: 'Refresh Overview',
+    userManagementDesc: 'Manage user accounts, node operator roles, and status.',
 
     // Stats
     knowledgeBaseDocs: 'Knowledge Base Docs',
@@ -88,6 +104,20 @@ const translations: Record<Language, Translations> = {
     liveRagActive: 'Live Knowledge RAG Active',
     active: 'Active',
     pending: 'Pending',
+    suspended: 'Suspended',
+    all: 'All',
+
+    // User Management Specific
+    totalPlatformUsers: 'TOTAL PLATFORM USERS',
+    activeValidators: 'ACTIVE VALIDATORS',
+    totalStakedYcoin: 'TOTAL STAKED YCOIN',
+    searchUserPlaceholder: 'Search name, email, or BTC address...',
+    tableUser: 'USER',
+    tableRole: 'ROLE',
+    tableStatus: 'STATUS',
+    tableStakedSY: 'STAKED $Y',
+    tableJoined: 'JOINED',
+    tableActions: 'ACTIONS',
 
     // Recent Documents
     recentKbDocs: 'Recent Knowledge Base Documents',
@@ -125,6 +155,7 @@ const translations: Record<Language, Translations> = {
     systemOverview: '系统概览',
     systemOverviewDesc: 'AI知识库文档、注册用户、活动节点和AI核心健康状况的总结概览。',
     refreshOverview: '刷新概览',
+    userManagementDesc: '管理用户账户、节点运算符角色和状态。',
 
     // Stats
     knowledgeBaseDocs: '知识库文档',
@@ -139,6 +170,20 @@ const translations: Record<Language, Translations> = {
     liveRagActive: '实时知识 RAG 处于活动状态',
     active: '活动',
     pending: '待处理',
+    suspended: '已挂起',
+    all: '全部',
+
+    // User Management Specific
+    totalPlatformUsers: '平台总用户',
+    activeValidators: '活动验证者',
+    totalStakedYcoin: '总质押 YCOIN',
+    searchUserPlaceholder: '搜索姓名、邮箱或 BTC 地址...',
+    tableUser: '用户',
+    tableRole: '角色',
+    tableStatus: '状态',
+    tableStakedSY: '质押 $Y',
+    tableJoined: '加入时间',
+    tableActions: '操作',
 
     // Recent Documents
     recentKbDocs: '最近的知识库文档',

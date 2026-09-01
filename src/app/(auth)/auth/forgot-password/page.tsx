@@ -60,7 +60,7 @@ const ForgotPasswordPage = () => {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-[#A1A1A1] leading-relaxed max-w-[320px] mb-8">
+        <p className="text-xs text-description leading-relaxed max-w-[320px] mb-8">
           Enter your registered admin email address below to receive an OTP verification code.
         </p>
       </div>
@@ -74,7 +74,7 @@ const ForgotPasswordPage = () => {
             <h3 className="text-white text-base font-semibold mb-2">
               Verification Code Sent
             </h3>
-            <p className="text-xs text-[#A1A1A1] leading-relaxed">
+            <p className="text-xs text-description leading-relaxed">
               We have sent a 6-digit OTP code to your administrator email address.
             </p>
           </div>
@@ -92,7 +92,7 @@ const ForgotPasswordPage = () => {
           <div>
             <label
               htmlFor="email"
-              className="block text-[11px] font-semibold tracking-wider uppercase text-[#D4D4D4] mb-2"
+              className="block text-[11px] font-semibold tracking-wider uppercase text-input-label mb-2"
             >
               ADMIN EMAIL
             </label>
@@ -102,7 +102,7 @@ const ForgotPasswordPage = () => {
               placeholder="admin@ycoin.ai"
               {...register('email')}
               className={`w-full px-4 py-3 bg-[#040812] border ${
-                errors.email ? 'border-red-500' : 'border-[#1C2A3F]'
+                errors.email ? 'border-red-500' : 'border-border-color'
               } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
             />
             {errors.email && (
@@ -129,7 +129,7 @@ const ForgotPasswordPage = () => {
           <div className="text-center pt-2">
             <Link
               href="/auth/sign-in"
-              className="inline-flex items-center gap-2 text-xs text-[#A1A1A1] hover:text-white transition-colors font-medium"
+              className="inline-flex items-center gap-2 text-xs text-description hover:text-white transition-colors font-medium"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to Sign In</span>

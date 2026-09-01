@@ -35,7 +35,7 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="w-full max-w-[440px] bg-[#0A101D] border border-[#1C2A3F] rounded-2xl p-8 sm:p-10 shadow-[0_0_50px_rgba(0,113,227,0.35)] relative z-10 backdrop-blur-md">
+    <div className="w-full max-w-110 bg-[#0A101D] border border-border-color rounded-2xl p-8 sm:p-10 shadow-[0_0_50px_rgba(0,113,227,0.35)] relative z-10 backdrop-blur-md">
       {/* Logo & Header */}
       <div className="flex flex-col items-center text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
@@ -59,7 +59,7 @@ const SignInPage = () => {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-[#A1A1A1] leading-relaxed max-w-[320px] mb-8">
+        <p className="text-xs text-description leading-relaxed max-w-[320px] mb-8">
           Enter administrator credentials to manage live AI knowledge docs and
           platform users.
         </p>
@@ -71,7 +71,7 @@ const SignInPage = () => {
         <div>
           <label
             htmlFor="email"
-            className="block text-[11px] font-semibold tracking-wider uppercase text-[#D4D4D4] mb-2"
+            className="block text-[11px] font-semibold tracking-wider uppercase text-input-label mb-2"
           >
             ADMIN EMAIL
           </label>
@@ -81,7 +81,7 @@ const SignInPage = () => {
             placeholder="admin@ycoin.ai"
             {...register('email')}
             className={`w-full px-4 py-3 bg-[#040812] border ${
-              errors.email ? 'border-red-500' : 'border-[#1C2A3F]'
+              errors.email ? 'border-red-500' : 'border-border-color'
             } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
           />
           {errors.email && (
@@ -97,7 +97,7 @@ const SignInPage = () => {
           <div className="flex items-center justify-between mb-2">
             <label
               htmlFor="password"
-              className="block text-[11px] font-semibold tracking-wider uppercase text-[#D4D4D4]"
+              className="block text-[11px] font-semibold tracking-wider uppercase text-input-label"
             >
               PASSWORD
             </label>
@@ -115,7 +115,7 @@ const SignInPage = () => {
               placeholder="••••••••"
               {...register('password')}
               className={`w-full px-4 py-3 bg-[#040812] border ${
-                errors.password ? 'border-red-500' : 'border-[#1C2A3F]'
+                errors.password ? 'border-red-500' : 'border-border-color'
               } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
             />
             <button

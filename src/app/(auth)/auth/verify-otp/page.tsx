@@ -51,7 +51,7 @@ const VerifyOtpPage = () => {
   };
 
   return (
-    <div className="w-full max-w-110 bg-[#0A101D] border border-[#1C2A3F] rounded-2xl p-8 sm:p-10 shadow-[0_0_50px_rgba(0,113,227,0.35)] relative z-10 backdrop-blur-md">
+    <div className="w-full max-w-110 bg-[#0A101D] border border-border-color rounded-2xl p-8 sm:p-10 shadow-[0_0_50px_rgba(0,113,227,0.35)] relative z-10 backdrop-blur-md">
       {/* Logo & Header */}
       <div className="flex flex-col items-center text-center">
         <div className="flex items-center justify-center gap-3 mb-4">
@@ -75,7 +75,7 @@ const VerifyOtpPage = () => {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-[#A1A1A1] leading-relaxed max-w-[320px] mb-8">
+        <p className="text-xs text-description leading-relaxed max-w-[320px] mb-8">
           Enter the 6-digit security verification code sent to your admin email address.
         </p>
       </div>
@@ -89,7 +89,7 @@ const VerifyOtpPage = () => {
         <div>
           <label
             htmlFor="otp-input"
-            className="block text-[11px] font-semibold tracking-wider uppercase text-[#D4D4D4] mb-3 text-center"
+            className="block text-[11px] font-semibold tracking-wider uppercase text-input-label mb-3 text-center"
           >
             ENTER 6-DIGIT VERIFICATION CODE
           </label>
@@ -103,7 +103,7 @@ const VerifyOtpPage = () => {
               onChange={handleOtpChange}
               placeholder="123456"
               className={`w-full px-4 py-3.5 bg-[#040812] border ${
-                errors.otp ? 'border-red-500' : 'border-[#1C2A3F]'
+                errors.otp ? 'border-red-500' : 'border-border-color'
               } rounded-lg text-white text-center text-xl tracking-[0.4em] font-mono placeholder:text-gray-700 placeholder:tracking-[0.4em] focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
             />
           </div>
@@ -117,7 +117,7 @@ const VerifyOtpPage = () => {
 
         {/* Resend Code Section */}
         <div className="flex items-center justify-between text-xs pt-1">
-          <span className="text-[#A1A1A1]">Didn't receive the code?</span>
+          <span className="text-description">Didn't receive the code?</span>
           <button
             type="button"
             onClick={handleResend}
@@ -145,7 +145,7 @@ const VerifyOtpPage = () => {
         <div className="text-center pt-2">
           <Link
             href="/auth/sign-in"
-            className="inline-flex items-center gap-2 text-xs text-[#A1A1A1] hover:text-white transition-colors font-medium"
+            className="inline-flex items-center gap-2 text-xs text-description hover:text-white transition-colors font-medium"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Sign In</span>

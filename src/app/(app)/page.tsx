@@ -46,21 +46,6 @@ const OverviewPage = () => {
             {t.systemOverviewDesc}
           </p>
         </div>
-
-        {/* Refresh Button */}
-        <button
-          type="button"
-          onClick={handleRefresh}
-          disabled={isRefreshing}
-          className="self-start sm:self-auto px-4 py-2.5 bg-[#0A101D] hover:bg-[#111A2E] border border-border-color text-xs font-semibold text-white rounded-xl flex items-center gap-2 transition-all shadow-sm cursor-pointer disabled:opacity-50"
-        >
-          <RefreshCw
-            className={`w-3.5 h-3.5 text-[#0071E3] ${
-              isRefreshing ? 'animate-spin' : ''
-            }`}
-          />
-          <span>{isRefreshing ? 'Refreshing...' : t.refreshOverview}</span>
-        </button>
       </div>
 
       {/* 4 Stat Cards */}

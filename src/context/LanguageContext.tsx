@@ -22,8 +22,11 @@ type Translations = {
   systemOverviewDesc: string;
   refreshOverview: string;
   userManagementDesc: string;
+  bulkPushSystemTitle: string;
+  bulkPushSystemDesc: string;
+  refreshFeed: string;
 
-  // Stats
+  // Stats & Badges
   knowledgeBaseDocs: string;
   viewDocs: string;
   totalCharsIndexed: string;
@@ -39,7 +42,7 @@ type Translations = {
   suspended: string;
   all: string;
 
-  // User Management Specific
+  // User Management
   totalPlatformUsers: string;
   activeValidators: string;
   totalStakedYcoin: string;
@@ -51,7 +54,40 @@ type Translations = {
   tableJoined: string;
   tableActions: string;
 
-  // Recent Documents
+  // Bulk Push Notification Specific
+  composeTitle: string;
+  composeDesc: string;
+  pushCategory: string;
+  alertsCategory: string;
+  discoverCategory: string;
+  notificationTitleLabel: string;
+  notificationTitlePlaceholder: string;
+  pushMessageLabel: string;
+  pushMessagePlaceholder: string;
+  broadcastNowButton: string;
+  livePreviewTitle: string;
+  livePreviewBadge: string;
+  livePreviewDesc: string;
+  justNow: string;
+  sampleTitlePlaceholder: string;
+  sampleMessagePlaceholder: string;
+  targetLabel: string;
+  targetValue: string;
+  viewAlertButton: string;
+  estimatedReachTitle: string;
+  estimatedReachDesc: string;
+  reachPercent: string;
+  historyTitle: string;
+  historyDesc: string;
+  broadcastsCount: string;
+  tableCategoryUrgency: string;
+  tableTitleContent: string;
+  tableTargetAudience: string;
+  tableRecipients: string;
+  tableSentDate: string;
+  tableAction: string;
+
+  // Recent Documents & Modals
   recentKbDocs: string;
   viewAll: string;
   inspectContentPayload: string;
@@ -60,8 +96,6 @@ type Translations = {
   totalLength: string;
   fileSize: string;
   uploadedBy: string;
-
-  // Recent Users & Modal
   recentRegisteredUsers: string;
   removeUserAccount: string;
   removeUserDesc: string;
@@ -90,8 +124,11 @@ const translations: Record<Language, Translations> = {
     systemOverviewDesc: 'Summary overview of AI knowledge base documents, registered users, active nodes, and AI core health.',
     refreshOverview: 'Refresh Overview',
     userManagementDesc: 'Manage user accounts, node operator roles, and status.',
+    bulkPushSystemTitle: 'Bulk Push Notification System',
+    bulkPushSystemDesc: 'Broadcast real-time push notifications and alerts to Discover and Alert systems across all active users.',
+    refreshFeed: 'Refresh Feed',
 
-    // Stats
+    // Stats & Badges
     knowledgeBaseDocs: 'Knowledge Base Docs',
     viewDocs: 'View Docs',
     totalCharsIndexed: '2.3k total chars indexed',
@@ -107,7 +144,7 @@ const translations: Record<Language, Translations> = {
     suspended: 'Suspended',
     all: 'All',
 
-    // User Management Specific
+    // User Management
     totalPlatformUsers: 'TOTAL PLATFORM USERS',
     activeValidators: 'ACTIVE VALIDATORS',
     totalStakedYcoin: 'TOTAL STAKED YCOIN',
@@ -119,7 +156,40 @@ const translations: Record<Language, Translations> = {
     tableJoined: 'JOINED',
     tableActions: 'ACTIONS',
 
-    // Recent Documents
+    // Bulk Push Notification Specific
+    composeTitle: 'Compose & Broadcast Push Notification',
+    composeDesc: 'Target specific categories (Discover / Alerts) and broadcast instant alerts.',
+    pushCategory: 'Push Category',
+    alertsCategory: 'Alerts',
+    discoverCategory: 'Discover',
+    notificationTitleLabel: 'Notification Title *',
+    notificationTitlePlaceholder: 'e.g. ⚡ Bitcoin Volatility Spike: BTC Surges Past $98,000',
+    pushMessageLabel: 'Push Notification Message *',
+    pushMessagePlaceholder: 'Write your broadcast message content here...',
+    broadcastNowButton: 'Broadcast Bulk Push Notification Now',
+    livePreviewTitle: 'LIVE PUSH NOTIFICATION PREVIEW',
+    livePreviewBadge: 'LIVE PREVIEW',
+    livePreviewDesc: 'How this push notification will render in user terminal feed & top bell drawer:',
+    justNow: 'Just now',
+    sampleTitlePlaceholder: '⚡ Sample Push Notification Title...',
+    sampleMessagePlaceholder: 'Write your broadcast message content on the left to see the live rendering preview.',
+    targetLabel: 'Target:',
+    targetValue: 'All Platform Users',
+    viewAlertButton: 'View Alert',
+    estimatedReachTitle: 'Estimated Broadcast Reach',
+    estimatedReachDesc: '4 Active Platform Nodes',
+    reachPercent: '100% Reach',
+    historyTitle: 'Sent Bulk Notifications Broadcast History',
+    historyDesc: 'View, verify recipient stats, or delete past push broadcast records.',
+    broadcastsCount: '3 Broadcasts',
+    tableCategoryUrgency: 'CATEGORY & URGENCY',
+    tableTitleContent: 'TITLE & MESSAGE CONTENT',
+    tableTargetAudience: 'TARGET AUDIENCE',
+    tableRecipients: 'RECIPIENTS',
+    tableSentDate: 'SENT DATE',
+    tableAction: 'ACTION',
+
+    // Recent Documents & Modals
     recentKbDocs: 'Recent Knowledge Base Documents',
     viewAll: 'View All →',
     inspectContentPayload: 'INSPECT CONTENT PAYLOAD:',
@@ -128,8 +198,6 @@ const translations: Record<Language, Translations> = {
     totalLength: 'Total Length:',
     fileSize: 'File Size:',
     uploadedBy: 'Uploaded By:',
-
-    // Recent Users & Modal
     recentRegisteredUsers: 'Recent Registered Users',
     removeUserAccount: 'Remove User Account?',
     removeUserDesc: 'Are you sure you want to remove this user account from the YCOIN platform?',
@@ -156,8 +224,11 @@ const translations: Record<Language, Translations> = {
     systemOverviewDesc: 'AI知识库文档、注册用户、活动节点和AI核心健康状况的总结概览。',
     refreshOverview: '刷新概览',
     userManagementDesc: '管理用户账户、节点运算符角色和状态。',
+    bulkPushSystemTitle: '批量推送通知系统',
+    bulkPushSystemDesc: '向所有活动用户广播实时推送通知和警报到探索与警报系统。',
+    refreshFeed: '刷新源',
 
-    // Stats
+    // Stats & Badges
     knowledgeBaseDocs: '知识库文档',
     viewDocs: '查看文档',
     totalCharsIndexed: '已索引 2.3k 总字符',
@@ -173,7 +244,7 @@ const translations: Record<Language, Translations> = {
     suspended: '已挂起',
     all: '全部',
 
-    // User Management Specific
+    // User Management
     totalPlatformUsers: '平台总用户',
     activeValidators: '活动验证者',
     totalStakedYcoin: '总质押 YCOIN',
@@ -185,7 +256,40 @@ const translations: Record<Language, Translations> = {
     tableJoined: '加入时间',
     tableActions: '操作',
 
-    // Recent Documents
+    // Bulk Push Notification Specific
+    composeTitle: '撰写并广播推送通知',
+    composeDesc: '针对特定类别（探索 / 警报）并广播即时警报。',
+    pushCategory: '推送类别',
+    alertsCategory: '警报',
+    discoverCategory: '探索',
+    notificationTitleLabel: '通知标题 *',
+    notificationTitlePlaceholder: '例如 ⚡ 比特币波动突发：BTC 突破 98,000 美元',
+    pushMessageLabel: '推送通知消息 *',
+    pushMessagePlaceholder: '在此处编写您的广播消息内容...',
+    broadcastNowButton: '立即广播批量推送通知',
+    livePreviewTitle: '实时推送通知预览',
+    livePreviewBadge: '实时预览',
+    livePreviewDesc: '此推送通知如何在用户终端提要和顶部铃铛抽屉中呈现：',
+    justNow: '刚刚',
+    sampleTitlePlaceholder: '⚡ 示例推送通知标题...',
+    sampleMessagePlaceholder: '在左侧编写您的广播消息内容以查看实时渲染预览。',
+    targetLabel: '目标:',
+    targetValue: '所有平台用户',
+    viewAlertButton: '查看警报',
+    estimatedReachTitle: '预计广播覆盖范围',
+    estimatedReachDesc: '4 个活动平台节点',
+    reachPercent: '100% 覆盖率',
+    historyTitle: '已发送批量通知广播历史',
+    historyDesc: '查看、验证接收者统计数据，或删除过去的推送广播记录。',
+    broadcastsCount: '3 个广播',
+    tableCategoryUrgency: '类别与紧急程度',
+    tableTitleContent: '标题与消息内容',
+    tableTargetAudience: '目标受众',
+    tableRecipients: '接收者',
+    tableSentDate: '发送日期',
+    tableAction: '操作',
+
+    // Recent Documents & Modals
     recentKbDocs: '最近的知识库文档',
     viewAll: '查看全部 →',
     inspectContentPayload: '检查内容有效载荷:',
@@ -194,8 +298,6 @@ const translations: Record<Language, Translations> = {
     totalLength: '总长度:',
     fileSize: '文件大小:',
     uploadedBy: '上传者:',
-
-    // Recent Users & Modal
     recentRegisteredUsers: '最近注册的用户',
     removeUserAccount: '删除用户账户？',
     removeUserDesc: '您确定要从 YCOIN 平台删除此用户账户吗？',

@@ -9,7 +9,7 @@ import { Lock, Eye, EyeOff, Shield, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import { signInSchema, SignInFormValues } from '@/validation/auth.validation';
-import { useSignInMutation } from '@/redux/features/auth.api';
+import { useSignInMutation } from '@/redux/features/auth/auth.api';
 import { saveToken } from '@/lib/auth';
 
 const SignInPage = () => {

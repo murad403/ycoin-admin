@@ -49,7 +49,6 @@ export const resetPasswordSchema = z
 
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;
 
-
 export const changePasswordSchema = z
   .object({
     currentPassword: z
@@ -69,3 +68,12 @@ export const changePasswordSchema = z
   });
 
 export type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
+
+export const updateProfileSchema = z.object({
+  profile_name: z
+    .string()
+    .min(1, { message: 'Administrator name is required' })
+    .min(2, { message: 'Name must be at least 2 characters' }),
+});
+
+export type UpdateProfileFormValues = z.infer<typeof updateProfileSchema>;

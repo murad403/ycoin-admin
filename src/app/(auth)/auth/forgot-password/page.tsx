@@ -9,7 +9,7 @@ import { KeyRound, Shield, AlertCircle, ArrowLeft, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import { forgotPasswordSchema, ForgotPasswordFormValues } from '@/validation/auth.validation';
-import { useForgotPasswordMutation } from '@/redux/features/auth.api';
+import { useForgotPasswordMutation } from '@/redux/features/auth/auth.api';
 
 const ForgotPasswordPage = () => {
   const router = useRouter();

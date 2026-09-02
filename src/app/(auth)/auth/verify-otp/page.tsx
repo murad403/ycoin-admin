@@ -9,7 +9,7 @@ import { ShieldCheck, Shield, AlertCircle, ArrowLeft, RefreshCw } from 'lucide-r
 import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import { verifyOtpSchema, VerifyOtpFormValues } from '@/validation/auth.validation';
-import { useForgotPasswordVerifyOtpMutation, useForgotPasswordMutation } from '@/redux/features/auth.api';
+import { useForgotPasswordVerifyOtpMutation, useForgotPasswordMutation } from '@/redux/features/auth/auth.api';
 
 const VerifyOtpPage = () => {
   const router = useRouter();

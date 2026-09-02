@@ -2,9 +2,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutGrid, BookOpen, Users, Bell, Settings, Shield, LogOut, Globe, X } from 'lucide-react';
+import { LayoutGrid, BookOpen, Users, Bell, Settings, Shield, LogOut, Globe, X, User } from 'lucide-react';
 import logo from '@/assets/logo.png';
 import { useLanguage } from '@/context/LanguageContext';
+import { useGetProfileQuery } from '@/redux/features/auth/auth.api';
 
 interface AdminSidebarProps {
   isMobileOpen?: boolean;
@@ -15,6 +16,7 @@ interface AdminSidebarProps {
 const AdminSidebar = ({ isMobileOpen = false, onCloseMobile, onOpenLogoutModal }: AdminSidebarProps) => {
   const pathname = usePathname();
   const { language, toggleLanguage, t } = useLanguage();
+  const { data: profile } = useGetProfileQuery();
 
   const navItems = [
     {
@@ -149,15 +151,25 @@ const AdminSidebar = ({ isMobileOpen = false, onCloseMobile, onOpenLogoutModal }
         {/* Bottom Profile & Logout Section */}
         <div className="pt-4 border-t border-border-color space-y-3 mt-auto">
           <div className="bg-[#0A101D] border border-border-color rounded-xl p-3 flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#0071E3]/20 border border-[#0071E3]/40 text-[#0071E3] font-bold text-xs flex items-center justify-center shrink-0">
-              YA
+            <div className="w-9 h-9 rounded-lg bg-[#0071E3]/20 border border-[#0071E3]/40 text-[#0071E3] font-bold text-xs flex items-center justify-center shrink-0 overflow-hidden">
+              {profile?.avatar ? (
+                <img
+                  src={profile.avatar}
+                  alt={profile.profile_name || 'Admin'}
+                  className="w-full h-full object-cover"
+                />
+              ) : profile?.profile_name ? (
+                profile.profile_name.slice(0, 2).toUpperCase()
+              ) : (
+                <User className="w-4 h-4 text-[#0071E3]" />
+              )}
             </div>
             <div className="min-w-0">
               <h4 className="text-xs font-bold text-white truncate">
-                {t.administrator}
+                {profile?.profile_name || t.administrator}
               </h4>
               <p className="text-[11px] text-description truncate">
-                admin@ycoin.ai
+                {profile?.email || 'admin@ycoin.ai'}
               </p>
             </div>
           </div>

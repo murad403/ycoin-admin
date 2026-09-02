@@ -6,7 +6,7 @@ import { Key, ShieldCheck, AlertCircle, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 import { ChangePasswordFormValues, changePasswordSchema } from '@/validation/auth.validation';
-import { useChangePasswordMutation } from '@/redux/features/auth.api';
+import { useChangePasswordMutation } from '@/redux/features/auth/auth.api';
 
 const ChangePassword = () => {
     const { t } = useLanguage();
@@ -74,8 +74,8 @@ const ChangePassword = () => {
                                 placeholder="••••••••••••"
                                 {...register('currentPassword')}
                                 className={`w-full px-4 py-3 bg-[#040812] border ${errors.currentPassword
-                                        ? 'border-red-500'
-                                        : 'border-border-color'
+                                    ? 'border-red-500'
+                                    : 'border-border-color'
                                     } rounded-xl text-white text-xs placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
                             />
                             <button
@@ -152,8 +152,8 @@ const ChangePassword = () => {
                                 placeholder={t.confirmNewPasswordPlaceholder}
                                 {...register('confirmNewPassword')}
                                 className={`w-full px-4 py-3 bg-[#040812] border ${errors.confirmNewPassword
-                                        ? 'border-red-500'
-                                        : 'border-border-color'
+                                    ? 'border-red-500'
+                                    : 'border-border-color'
                                     } rounded-xl text-white text-xs placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
                             />
                             <button

@@ -110,6 +110,14 @@ type Translations = {
   protocolTitleLabel: string;
   bioLabel: string;
   saveProfileDetails: string;
+  profilePhotoLabel: string;
+  uploadFileHint: string;
+  changeAvatarLabel: string;
+  roleLabel: string;
+  cannotBeChanged: string;
+  emailVerificationLabel: string;
+  verifiedStatus: string;
+  unverifiedStatus: string;
 
   // Change Password
   changePasswordTitle: string;
@@ -260,12 +268,20 @@ const translations: Record<Language, Translations> = {
     // Administrator Details
     adminDetailsTitle: 'Administrator Details',
     adminDetailsDesc: 'Update profile display name and title',
-    nameLabel: 'Name',
-    adminEmailLabel: 'Admin Email Address',
+    nameLabel: 'NAME',
+    adminEmailLabel: 'ADMIN EMAIL ADDRESS',
     emailLocked: '🔒 Locked (email cannot be modified)',
     protocolTitleLabel: 'Protocol Title',
     bioLabel: 'Bio / Description',
     saveProfileDetails: 'Save Profile Details',
+    profilePhotoLabel: 'Profile Photo',
+    uploadFileHint: 'Upload JPG, PNG or WEBP format.',
+    changeAvatarLabel: 'Change Avatar',
+    roleLabel: 'ROLE',
+    cannotBeChanged: 'Cannot be changed',
+    emailVerificationLabel: 'EMAIL VERIFICATION STATUS',
+    verifiedStatus: 'Verified',
+    unverifiedStatus: 'Unverified',
 
     // Change Password
     changePasswordTitle: 'Change Password',
@@ -420,6 +436,14 @@ const translations: Record<Language, Translations> = {
     protocolTitleLabel: '协议头衔',
     bioLabel: '简介 / 描述',
     saveProfileDetails: '保存个人资料',
+    profilePhotoLabel: '个人资料照片',
+    uploadFileHint: '上传 JPG、PNG 或 WEBP 格式。',
+    changeAvatarLabel: '更换头像',
+    roleLabel: '角色',
+    cannotBeChanged: '无法修改',
+    emailVerificationLabel: '邮箱验证状态',
+    verifiedStatus: '已验证',
+    unverifiedStatus: '未验证',
 
     // Change Password
     changePasswordTitle: '修改密码',

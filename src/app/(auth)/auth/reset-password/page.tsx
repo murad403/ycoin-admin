@@ -9,7 +9,7 @@ import { Lock, Eye, EyeOff, Shield, AlertCircle, ArrowLeft, CheckCircle2 } from 
 import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import { resetPasswordSchema, ResetPasswordFormValues } from '@/validation/auth.validation';
-import { useResetPasswordMutation } from '@/redux/features/auth.api';
+import { useResetPasswordMutation } from '@/redux/features/auth/auth.api';
 
 const ResetPasswordPage = () => {
   const searchParams = useSearchParams();

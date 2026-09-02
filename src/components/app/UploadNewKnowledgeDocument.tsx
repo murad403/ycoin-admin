@@ -18,12 +18,7 @@ interface UploadNewKnowledgeDocumentProps {
 const UploadNewKnowledgeDocument = ({ onAddDocument }: UploadNewKnowledgeDocumentProps) => {
   const { t } = useLanguage();
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UploadKnowledgeDocumentFormValues>({
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<UploadKnowledgeDocumentFormValues>({
     resolver: zodResolver(uploadKnowledgeDocumentSchema),
     defaultValues: {
       title: '',
@@ -91,9 +86,8 @@ const UploadNewKnowledgeDocument = ({ onAddDocument }: UploadNewKnowledgeDocumen
               type="text"
               placeholder={t.documentTitlePlaceholder}
               {...register('title')}
-              className={`w-full bg-[#040812] border ${
-                errors.title ? 'border-red-500 focus:border-red-500' : 'border-border-color focus:border-[#0071E3]'
-              } rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-gray-600 outline-none transition-colors`}
+              className={`w-full bg-[#040812] border ${errors.title ? 'border-red-500 focus:border-red-500' : 'border-border-color focus:border-[#0071E3]'
+                } rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-gray-600 outline-none transition-colors`}
             />
             {errors.title && (
               <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1">
@@ -113,9 +107,8 @@ const UploadNewKnowledgeDocument = ({ onAddDocument }: UploadNewKnowledgeDocumen
             <select
               id="format"
               {...register('format')}
-              className={`w-full bg-[#040812] border ${
-                errors.format ? 'border-red-500 focus:border-red-500' : 'border-border-color focus:border-[#0071E3]'
-              } rounded-xl px-4 py-2.5 text-sm text-white outline-none cursor-pointer transition-colors`}
+              className={`w-full bg-[#040812] border ${errors.format ? 'border-red-500 focus:border-red-500' : 'border-border-color focus:border-[#0071E3]'
+                } rounded-xl px-4 py-2.5 text-sm text-white outline-none cursor-pointer transition-colors`}
             >
               <option value="PDF" className="bg-[#0A101D]">
                 PDF
@@ -149,9 +142,8 @@ const UploadNewKnowledgeDocument = ({ onAddDocument }: UploadNewKnowledgeDocumen
             rows={5}
             placeholder={t.knowledgeTextContentPlaceholder}
             {...register('content')}
-            className={`w-full bg-[#040812] border ${
-              errors.content ? 'border-red-500 focus:border-red-500' : 'border-border-color focus:border-[#0071E3]'
-            } rounded-xl p-4 text-sm text-white placeholder:text-gray-600 outline-none resize-none transition-colors`}
+            className={`w-full bg-[#040812] border ${errors.content ? 'border-red-500 focus:border-red-500' : 'border-border-color focus:border-[#0071E3]'
+              } rounded-xl p-4 text-sm text-white placeholder:text-gray-600 outline-none resize-none transition-colors`}
           />
           {errors.content && (
             <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1">

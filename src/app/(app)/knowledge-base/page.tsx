@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import { Database } from 'lucide-react';
 import UploadNewKnowledgeDocument from '@/components/app/UploadNewKnowledgeDocument';

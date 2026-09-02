@@ -1,9 +1,8 @@
 'use client';
-
-import React from 'react';
-import { Search, Trash2, CheckCircle2, XCircle, ChevronLeft, ChevronRight, User, Loader2 } from 'lucide-react';
+import { Search, Trash2, CheckCircle2, XCircle, User, Loader2 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { TUserItem } from '@/redux/features/app/app.type';
+import CustomPagination from '@/components/shared/CustomPagination';
 
 interface UserManagementTableProps {
   users: TUserItem[];
@@ -31,10 +30,6 @@ const UserManagementTable = ({
   totalUsersCount,
 }: UserManagementTableProps) => {
   const { t } = useLanguage();
-
-  // Calculate total pages assuming default page size (10) or based on count
-  const pageSize = 10;
-  const totalPages = Math.max(1, Math.ceil(totalUsersCount / pageSize));
 
   return (
     <div className="bg-[#0A101D] border border-border-color rounded-2xl p-4 sm:p-6 shadow-sm space-y-6">
@@ -156,54 +151,15 @@ const UserManagementTable = ({
         </table>
       </div>
 
-      {/* Pagination Footer */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2 text-xs text-description">
-        <div>
-          Page <span className="text-white font-semibold">{page}</span> of{' '}
-          <span className="text-white font-semibold">{totalPages}</span> (Total users:{' '}
-          <span className="text-white font-semibold">{totalUsersCount}</span>)
-        </div>
-
-        <div className="flex items-center gap-2">
-          {/* Previous Page Button */}
-          <button
-            type="button"
-            disabled={!hasPreviousPage && page <= 1}
-            onClick={() => onPageChange(page - 1)}
-            className="px-3 py-1.5 bg-[#040812] border border-border-color hover:border-[#0071E3] text-white rounded-lg flex items-center gap-1 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            <ChevronLeft className="w-4 h-4" />
-            <span>Previous</span>
-          </button>
-
-          {/* Dynamic Page Number Buttons */}
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-            <button
-              key={pageNum}
-              type="button"
-              onClick={() => onPageChange(pageNum)}
-              className={`w-8 h-8 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
-                page === pageNum
-                  ? 'bg-[#0071E3] text-white shadow-sm font-bold'
-                  : 'bg-[#040812] border border-border-color text-description hover:text-white'
-              }`}
-            >
-              {pageNum}
-            </button>
-          ))}
-
-          {/* Next Page Button */}
-          <button
-            type="button"
-            disabled={!hasNextPage && page >= totalPages}
-            onClick={() => onPageChange(page + 1)}
-            className="px-3 py-1.5 bg-[#040812] border border-border-color hover:border-[#0071E3] text-white rounded-lg flex items-center gap-1 transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-          >
-            <span>Next</span>
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
+      {/* Reusable Custom Pagination Component */}
+      <CustomPagination
+        page={page}
+        totalCount={totalUsersCount}
+        hasNextPage={hasNextPage}
+        hasPreviousPage={hasPreviousPage}
+        onPageChange={onPageChange}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

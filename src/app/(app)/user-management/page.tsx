@@ -1,6 +1,5 @@
 'use client';
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Users } from 'lucide-react';
 import { toast } from 'sonner';
 import UserManagementTable from '@/components/app/UserManagementTable';

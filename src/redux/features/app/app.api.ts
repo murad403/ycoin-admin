@@ -9,6 +9,10 @@ import {
     TCreateKnowledgeBaseRequest,
     TUpdateKnowledgeBaseRequest,
     TRetrieveKnowledgeBasesQueryParams,
+    TNotificationItem,
+    TRetrieveNotificationsResponse,
+    TCreateNotificationRequest,
+    TRetrieveNotificationsQueryParams,
 } from "./app.type";
 
 const appApi = baseApi.injectEndpoints({
@@ -113,6 +117,44 @@ const appApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["KnowledgeBases"],
         }),
+
+        // notification******************************************
+        retrieveNotifications: builder.query<TRetrieveNotificationsResponse, TRetrieveNotificationsQueryParams | void>({
+            query: (params) => {
+                const queryParams = new URLSearchParams();
+                if (params?.page) queryParams.append("page", params.page.toString());
+                if (params?.page_size) queryParams.append("page_size", params.page_size.toString());
+                if (params?.search) queryParams.append("search", params.search);
+                const queryString = queryParams.toString();
+                return {
+                    url: `/admin/notifications/${queryString ? `?${queryString}` : ""}`,
+                    method: "GET",
+                };
+            },
+            providesTags: ["Notifications"],
+        }),
+        retrieveNotificationDetails: builder.query<TNotificationItem, number | string>({
+            query: (id) => ({
+                url: `/admin/notifications/${id}/`,
+                method: "GET",
+            }),
+            providesTags: ["Notifications"],
+        }),
+        createNotification: builder.mutation<TNotificationItem, TCreateNotificationRequest>({
+            query: (data) => ({
+                url: `/admin/notifications/`,
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ["Notifications"],
+        }),
+        deleteNotification: builder.mutation<void, number | string>({
+            query: (id) => ({
+                url: `/admin/notifications/${id}/`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["Notifications"],
+        }),
     }),
 });
 
@@ -128,4 +170,8 @@ export const {
     useCreateKnowledgeBaseMutation,
     useUpdateKnowledgeBaseMutation,
     useDeleteKnowledgeBaseMutation,
+    useRetrieveNotificationsQuery,
+    useRetrieveNotificationDetailsQuery,
+    useCreateNotificationMutation,
+    useDeleteNotificationMutation,
 } = appApi;

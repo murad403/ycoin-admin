@@ -70,3 +70,30 @@ export interface TRetrieveKnowledgeBasesQueryParams {
   page_size?: number;
   search?: string;
 }
+
+export interface TNotificationItem {
+  id: number | string;
+  category: string;
+  title: string;
+  content: string;
+  sent_date: string;
+}
+
+export interface TRetrieveNotificationsResponse {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: TNotificationItem[];
+}
+
+export interface TCreateNotificationRequest {
+  category: string;
+  title: string;
+  content: string;
+}
+
+export interface TRetrieveNotificationsQueryParams {
+  page?: number;
+  page_size?: number;
+  search?: string;
+}

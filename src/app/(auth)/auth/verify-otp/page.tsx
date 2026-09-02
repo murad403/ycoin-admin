@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -179,4 +179,13 @@ const VerifyOtpPage = () => {
   );
 };
 
-export default VerifyOtpPage;
+
+const page = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyOtpPage />
+    </Suspense>
+  )
+}
+
+export default page

@@ -35,3 +35,38 @@ export interface TRetrieveUsersQueryParams {
   page_size?: number;
   search?: string;
 }
+
+export interface TKnowledgeBaseItem {
+  id: string;
+  title: string;
+  content: string;
+  uploaded_by: string;
+  uploaded_by_name: string;
+  uploaded_by_email: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TRetrieveKnowledgeBasesResponse {
+  next: string | null;
+  previous: string | null;
+  results: TKnowledgeBaseItem[];
+  count?: number;
+  kb_count?: number;
+}
+
+export interface TCreateKnowledgeBaseRequest {
+  title: string;
+  content: string;
+}
+
+export interface TUpdateKnowledgeBaseRequest {
+  title: string;
+  content: string;
+}
+
+export interface TRetrieveKnowledgeBasesQueryParams {
+  page?: number;
+  page_size?: number;
+  search?: string;
+}

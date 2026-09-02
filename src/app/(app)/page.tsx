@@ -1,19 +1,20 @@
 'use client';
+
 import React, { useState } from 'react';
 import { LayoutGrid } from 'lucide-react';
 import { toast } from 'sonner';
 import OverviewStats from '@/components/app/OverviewStats';
 import RecentKnowledgeBaseDocuments from '@/components/app/RecentKnowledgeBaseDocuments';
 import RecentRegisteredUsers from '@/components/app/RecentRegisteredUsers';
-import DocumentDetailsModal, { DocumentItem } from '@/components/app/DocumentDetailsModal';
+import DocumentDetailsModal from '@/components/app/DocumentDetailsModal';
 import RemoveUserModal from '@/components/app/RemoveUserModal';
 import { useLanguage } from '@/context/LanguageContext';
 import { useDeleteUserMutation } from '@/redux/features/app/app.api';
-import { TUserItem } from '@/redux/features/app/app.type';
+import { TUserItem, TKnowledgeBaseItem } from '@/redux/features/app/app.type';
 
 const OverviewPage = () => {
   const { t } = useLanguage();
-  const [selectedDoc, setSelectedDoc] = useState<DocumentItem | null>(null);
+  const [selectedDoc, setSelectedDoc] = useState<TKnowledgeBaseItem | null>(null);
   const [deleteTargetUser, setDeleteTargetUser] = useState<TUserItem | null>(null);
 
   const [deleteUserMutation, { isLoading: isDeleting }] = useDeleteUserMutation();

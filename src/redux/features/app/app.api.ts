@@ -4,6 +4,11 @@ import {
     TUpdateLegalDocumentRequest,
     TRetrieveUsersResponse,
     TRetrieveUsersQueryParams,
+    TKnowledgeBaseItem,
+    TRetrieveKnowledgeBasesResponse,
+    TCreateKnowledgeBaseRequest,
+    TUpdateKnowledgeBaseRequest,
+    TRetrieveKnowledgeBasesQueryParams,
 } from "./app.type";
 
 const appApi = baseApi.injectEndpoints({
@@ -62,6 +67,52 @@ const appApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["Users"],
         }),
+
+        // knowledge base**************************************************************
+        retrieveKnowledgeBases: builder.query<TRetrieveKnowledgeBasesResponse, TRetrieveKnowledgeBasesQueryParams | void>({
+            query: (params) => {
+                const queryParams = new URLSearchParams();
+                if (params?.page) queryParams.append("page", params.page.toString());
+                if (params?.page_size) queryParams.append("page_size", params.page_size.toString());
+                if (params?.search) queryParams.append("search", params.search);
+                const queryString = queryParams.toString();
+                return {
+                    url: `/knowledge-base/${queryString ? `?${queryString}` : ""}`,
+                    method: "GET",
+                };
+            },
+            providesTags: ["KnowledgeBases"],
+        }),
+        retrieveKnowledgeBaseDetails: builder.query<TKnowledgeBaseItem, string>({
+            query: (id) => ({
+                url: `/knowledge-base/${id}/`,
+                method: "GET",
+            }),
+            providesTags: ["KnowledgeBases"],
+        }),
+        createKnowledgeBase: builder.mutation<TKnowledgeBaseItem, TCreateKnowledgeBaseRequest>({
+            query: (data) => ({
+                url: `/knowledge-base/`,
+                method: "POST",
+                body: data,
+            }),
+            invalidatesTags: ["KnowledgeBases"],
+        }),
+        updateKnowledgeBase: builder.mutation<TKnowledgeBaseItem, { id: string; data: TUpdateKnowledgeBaseRequest }>({
+            query: ({ id, data }) => ({
+                url: `/knowledge-base/${id}/`,
+                method: "PATCH",
+                body: data,
+            }),
+            invalidatesTags: ["KnowledgeBases"],
+        }),
+        deleteKnowledgeBase: builder.mutation<void, string>({
+            query: (id) => ({
+                url: `/knowledge-base/${id}/`,
+                method: "DELETE",
+            }),
+            invalidatesTags: ["KnowledgeBases"],
+        }),
     }),
 });
 
@@ -72,4 +123,9 @@ export const {
     useUpdateTermsAndConditionsMutation,
     useRetrieveUsersQuery,
     useDeleteUserMutation,
+    useRetrieveKnowledgeBasesQuery,
+    useRetrieveKnowledgeBaseDetailsQuery,
+    useCreateKnowledgeBaseMutation,
+    useUpdateKnowledgeBaseMutation,
+    useDeleteKnowledgeBaseMutation,
 } = appApi;

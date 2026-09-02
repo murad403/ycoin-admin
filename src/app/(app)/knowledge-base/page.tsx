@@ -6,6 +6,7 @@ import { toast } from 'sonner';
 import UploadNewKnowledgeDocument from '@/components/app/UploadNewKnowledgeDocument';
 import IndexedKnowledgeDocuments from '@/components/app/IndexedKnowledgeDocuments';
 import DocumentDetailsModal from '@/components/app/DocumentDetailsModal';
+import UpdateKnowledgeModal from '@/components/app/UpdateKnowledgeModal';
 import { useLanguage } from '@/context/LanguageContext';
 import {
   useRetrieveKnowledgeBasesQuery,
@@ -34,27 +35,31 @@ const KnowledgeBasePage = () => {
     setPage(1);
   };
 
-  const handleFormSubmit = async (formData: UploadKnowledgeDocumentFormValues) => {
+  const handleCreateDocument = async (formData: UploadKnowledgeDocumentFormValues) => {
     try {
-      if (editingDoc) {
-        await updateKnowledgeBase({
-          id: editingDoc.id,
-          data: {
-            title: formData.title,
-            content: formData.content,
-          },
-        }).unwrap();
-        toast.success(`Knowledge document "${formData.title}" updated successfully!`);
-        setEditingDoc(null);
-      } else {
-        await createKnowledgeBase({
-          title: formData.title,
-          content: formData.content,
-        }).unwrap();
-        toast.success(`Knowledge document "${formData.title}" saved successfully!`);
-      }
+      await createKnowledgeBase({
+        title: formData.title,
+        content: formData.content,
+      }).unwrap();
+      toast.success(`Knowledge document "${formData.title}" saved successfully!`);
     } catch (err: any) {
       toast.error(err?.data?.detail || err?.data?.message || 'Failed to save knowledge document.');
+    }
+  };
+
+  const handleUpdateDocument = async (id: string, formData: UploadKnowledgeDocumentFormValues) => {
+    try {
+      await updateKnowledgeBase({
+        id,
+        data: {
+          title: formData.title,
+          content: formData.content,
+        },
+      }).unwrap();
+      toast.success(`Knowledge document "${formData.title}" updated successfully!`);
+      setEditingDoc(null);
+    } catch (err: any) {
+      toast.error(err?.data?.detail || err?.data?.message || 'Failed to update knowledge document.');
     }
   };
 
@@ -89,12 +94,10 @@ const KnowledgeBasePage = () => {
         </div>
       </div>
 
-      {/* Top Card: Upload / Edit Form */}
+      {/* Top Card: Upload Form (For creating new entries) */}
       <UploadNewKnowledgeDocument
-        onSubmitForm={handleFormSubmit}
-        editingDoc={editingDoc}
-        onCancelEdit={() => setEditingDoc(null)}
-        isSubmitting={isCreating || isUpdating}
+        onAddDocument={handleCreateDocument}
+        isSubmitting={isCreating}
       />
 
       {/* Bottom Card: Indexed Documents Table */}
@@ -118,6 +121,15 @@ const KnowledgeBasePage = () => {
         document={selectedDoc}
         isOpen={!!selectedDoc}
         onClose={() => setSelectedDoc(null)}
+      />
+
+      {/* Update Document Modal */}
+      <UpdateKnowledgeModal
+        document={editingDoc}
+        isOpen={!!editingDoc}
+        onClose={() => setEditingDoc(null)}
+        onUpdateDocument={handleUpdateDocument}
+        isUpdating={isUpdating}
       />
     </div>
   );

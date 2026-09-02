@@ -134,6 +134,10 @@ type Translations = {
   aiKbManagementDesc: string;
   uploadNewKbDocTitle: string;
   uploadNewKbDocDesc: string;
+  updateKbDocTitle: string;
+  updateKbDocDesc: string;
+  updateKnowledgeEntry: string;
+  updatingEntry: string;
   documentTitleLabel: string;
   documentTitlePlaceholder: string;
   formatLabel: string;
@@ -298,6 +302,10 @@ const translations: Record<Language, Translations> = {
     aiKbManagementDesc: 'Upload PDF, Word, or text documents to train the AI agent in real-time. Changes reflect instantly.',
     uploadNewKbDocTitle: 'Upload New Knowledge Document',
     uploadNewKbDocDesc: 'Upload PDFs, Word documents, Markdown, or write knowledge entries directly.',
+    updateKbDocTitle: 'Update Knowledge Document',
+    updateKbDocDesc: 'Edit document title and content for document ID:',
+    updateKnowledgeEntry: 'Update Knowledge Entry',
+    updatingEntry: 'Updating Entry...',
     documentTitleLabel: 'DOCUMENT TITLE',
     documentTitlePlaceholder: 'e.g. YCOIN Tokenomics & Node Rewards',
     formatLabel: 'FORMAT',
@@ -460,6 +468,10 @@ const translations: Record<Language, Translations> = {
     aiKbManagementDesc: '上传 PDF、Word 或文本文档以实时训练 AI 代理。更改即时生效。',
     uploadNewKbDocTitle: '上传新知识文档',
     uploadNewKbDocDesc: '上传 PDF、Word 文档、Markdown 或直接撰写知识条目。',
+    updateKbDocTitle: '更新知识文档',
+    updateKbDocDesc: '编辑文档 ID 的标题和内容：',
+    updateKnowledgeEntry: '更新知识条目',
+    updatingEntry: '正在更新条目...',
     documentTitleLabel: '文档标题',
     documentTitlePlaceholder: '例如 YCOIN 代币经济学与节点奖励',
     formatLabel: '格式',

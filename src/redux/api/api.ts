@@ -1,4 +1,3 @@
-
 import { getCurrentUser } from "@/lib/auth";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
@@ -16,7 +15,7 @@ const baseQuery = fetchBaseQuery({
 const baseApi = createApi({
     reducerPath: "baseApi",
     baseQuery: baseQuery,
-    tagTypes: [],
+    tagTypes: ["Profile"],
     endpoints: () => ({})
 })
 

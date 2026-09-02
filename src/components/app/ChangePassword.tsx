@@ -2,21 +2,21 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { Key, ShieldCheck, AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
 import { ChangePasswordFormValues, changePasswordSchema } from '@/validation/auth.validation';
-
-
+import { useChangePasswordMutation } from '@/redux/features/auth.api';
 
 const ChangePassword = () => {
     const { t } = useLanguage();
     const [showCurrent, setShowCurrent] = useState(false);
     const [showNew, setShowNew] = useState(false);
     const [showConfirm, setShowConfirm] = useState(false);
-    const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const { register, handleSubmit, reset, formState: { errors }, } = useForm<ChangePasswordFormValues>({
+    const [changePassword, { isLoading: isSubmitting }] = useChangePasswordMutation();
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<ChangePasswordFormValues>({
         resolver: zodResolver(changePasswordSchema),
         defaultValues: {
             currentPassword: '',
@@ -25,14 +25,18 @@ const ChangePassword = () => {
         },
     });
 
-    const onSubmit = (data: ChangePasswordFormValues) => {
-        setIsSubmitting(true);
-        console.log('Change Password Data:', data);
-        setTimeout(() => {
-            setIsSubmitting(false);
+    const onSubmit = async (data: ChangePasswordFormValues) => {
+        try {
+            const res = await changePassword({
+                current_password: data.currentPassword,
+                new_password: data.newPassword,
+            }).unwrap();
+
+            toast.success(res.detail || 'Password updated successfully!');
             reset();
-            alert('Password updated successfully!');
-        }, 800);
+        } catch (err: any) {
+            toast.error(err?.data?.detail || err?.data?.message || 'Failed to update password. Please verify current password.');
+        }
     };
 
     return (

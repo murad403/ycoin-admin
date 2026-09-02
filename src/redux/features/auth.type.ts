@@ -1,9 +1,3 @@
-
-
-
-
-
-
 export interface TSignInRequest {
   email: string;
   password: string;

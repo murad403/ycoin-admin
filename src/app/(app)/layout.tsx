@@ -4,13 +4,15 @@ import AdminSidebar from '@/components/shared/AdminSidebar';
 import AdminTopbar from '@/components/shared/AdminTopbar';
 import LogoutModal from '@/components/shared/LogoutModal';
 import { LanguageProvider } from '@/context/LanguageContext';
+import { removeToken } from '@/lib/auth';
 
 const AppLayoutContent = ({ children }: { children: React.ReactNode }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  const handleConfirmLogout = () => {
+  const handleConfirmLogout = async () => {
     setIsLogoutModalOpen(false);
+    await removeToken();
     window.location.href = '/auth/sign-in';
   };
 

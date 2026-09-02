@@ -1,6 +1,8 @@
 'use client';
 import { UserX, LogOut, X } from 'lucide-react';
+import { toast } from 'sonner';
 import { useLanguage } from '@/context/LanguageContext';
+import { removeToken } from '@/lib/auth';
 
 interface LogoutModalProps {
     isOpen: boolean;
@@ -26,6 +28,16 @@ const LogoutModal = ({
 
     const isDelete = type === 'delete-user';
 
+    const handleConfirmAction = async () => {
+        if (!isDelete) {
+            await removeToken();
+            toast.success('Logged out successfully');
+            window.location.href = '/auth/sign-in';
+        } else {
+            onConfirm();
+        }
+    };
+
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
             <div
@@ -35,7 +47,7 @@ const LogoutModal = ({
                 {/* Close Button */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors focus:outline-none"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
                 >
                     <X className="w-5 h-5" />
                 </button>
@@ -70,7 +82,7 @@ const LogoutModal = ({
                     </button>
                     <button
                         type="button"
-                        onClick={onConfirm}
+                        onClick={handleConfirmAction}
                         className="flex-1 py-3 px-4 bg-[#E11D48] hover:bg-[#F43F5E] active:bg-[#BE123C] text-white font-medium text-sm rounded-xl shadow-lg shadow-rose-950/40 transition-all cursor-pointer"
                     >
                         {isDelete ? t.deleteAccount : t.logout}

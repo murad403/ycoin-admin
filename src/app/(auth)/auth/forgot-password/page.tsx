@@ -2,37 +2,38 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { KeyRound, Shield, AlertCircle, ArrowLeft, Mail } from 'lucide-react';
+import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
-import {
-  forgotPasswordSchema,
-  ForgotPasswordFormValues,
-} from '@/validation/auth.validation';
+import { forgotPasswordSchema, ForgotPasswordFormValues } from '@/validation/auth.validation';
+import { useForgotPasswordMutation } from '@/redux/features/auth.api';
 
 const ForgotPasswordPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const router = useRouter();
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
+  const [submittedEmail, setSubmittedEmail] = useState('');
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ForgotPasswordFormValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: '',
     },
   });
 
-  const onSubmit = (data: ForgotPasswordFormValues) => {
-    setIsSubmitting(true);
-    console.log('Forgot Password Data:', data);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1000);
+  const onSubmit = async (data: ForgotPasswordFormValues) => {
+    try {
+      const res = await forgotPassword(data).unwrap();
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('reset_email', data.email);
+      }
+      setSubmittedEmail(data.email);
+      toast.success(res.detail || 'Verification code sent to your email!');
+    } catch (err: any) {
+      toast.error(err?.data?.detail || err?.data?.message || 'Failed to send reset code. Please check your email address.');
+    }
   };
 
   return (
@@ -65,7 +66,7 @@ const ForgotPasswordPage = () => {
         </p>
       </div>
 
-      {isSubmitted ? (
+      {submittedEmail ? (
         <div className="text-center space-y-6">
           <div className="w-12 h-12 bg-[#0071E3]/15 border border-[#0071E3]/30 rounded-full flex items-center justify-center mx-auto text-[#0071E3]">
             <Mail className="w-6 h-6" />
@@ -75,11 +76,11 @@ const ForgotPasswordPage = () => {
               Verification Code Sent
             </h3>
             <p className="text-xs text-description leading-relaxed">
-              We have sent a 6-digit OTP code to your administrator email address.
+              We have sent a 6-digit OTP code to <span className="text-white font-medium">{submittedEmail}</span>.
             </p>
           </div>
           <Link
-            href="/auth/verify-otp"
+            href={`/auth/verify-otp?email=${encodeURIComponent(submittedEmail)}`}
             className="w-full py-3.5 px-4 bg-[#0071E3] hover:bg-[#0060C4] text-white font-medium text-sm rounded-lg shadow-lg shadow-[#0071E3]/30 transition-all flex items-center justify-center gap-2"
           >
             <span>Proceed to Verify OTP</span>
@@ -101,9 +102,8 @@ const ForgotPasswordPage = () => {
               type="email"
               placeholder="admin@ycoin.ai"
               {...register('email')}
-              className={`w-full px-4 py-3 bg-[#040812] border ${
-                errors.email ? 'border-red-500' : 'border-border-color'
-              } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
+              className={`w-full px-4 py-3 bg-[#040812] border ${errors.email ? 'border-red-500' : 'border-border-color'
+                } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
             />
             {errors.email && (
               <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1">
@@ -116,12 +116,12 @@ const ForgotPasswordPage = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            disabled={isSubmitting}
+            disabled={isLoading}
             className="w-full py-3.5 px-4 bg-[#0071E3] hover:bg-[#0060C4] active:bg-[#0052B0] text-white font-medium text-sm rounded-lg shadow-lg shadow-[#0071E3]/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mt-2"
           >
             <KeyRound className="w-4 h-4" />
             <span>
-              {isSubmitting ? 'Sending Request...' : 'Send Reset Code'}
+              {isLoading ? 'Sending Request...' : 'Send Reset Code'}
             </span>
           </button>
 

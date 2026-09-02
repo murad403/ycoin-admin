@@ -1,25 +1,35 @@
 'use client';
-
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ShieldCheck, Shield, AlertCircle, ArrowLeft, RefreshCw } from 'lucide-react';
+import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import { verifyOtpSchema, VerifyOtpFormValues } from '@/validation/auth.validation';
+import { useForgotPasswordVerifyOtpMutation, useForgotPasswordMutation } from '@/redux/features/auth.api';
 
 const VerifyOtpPage = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isResending, setIsResending] = useState(false);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [email, setEmail] = useState<string>('');
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    watch,
-    formState: { errors },
-  } = useForm<VerifyOtpFormValues>({
+  const [verifyOtp, { isLoading: isSubmitting }] = useForgotPasswordVerifyOtpMutation();
+  const [resendOtp, { isLoading: isResending }] = useForgotPasswordMutation();
+
+  useEffect(() => {
+    const urlEmail = searchParams.get('email');
+    const storedEmail = typeof window !== 'undefined' ? sessionStorage.getItem('reset_email') : null;
+    if (urlEmail) {
+      setEmail(urlEmail);
+    } else if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, [searchParams]);
+
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<VerifyOtpFormValues>({
     resolver: zodResolver(verifyOtpSchema),
     defaultValues: {
       otp: '',
@@ -33,21 +43,34 @@ const VerifyOtpPage = () => {
     setValue('otp', val, { shouldValidate: true });
   };
 
-  const onSubmit = (data: VerifyOtpFormValues) => {
-    setIsSubmitting(true);
-    console.log('OTP Data:', data);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      window.location.href = '/auth/reset-password';
-    }, 1000);
+  const onSubmit = async (data: VerifyOtpFormValues) => {
+    if (!email) {
+      toast.error('Email is missing. Please restart password recovery.');
+      return;
+    }
+    try {
+      const res = await verifyOtp({ email, otp: data.otp }).unwrap();
+      if (typeof window !== 'undefined' && res.reset_token) {
+        sessionStorage.setItem('reset_token', res.reset_token);
+      }
+      toast.success(res.detail || 'OTP verified successfully!');
+      router.push(`/auth/reset-password?token=${encodeURIComponent(res.reset_token || '')}`);
+    } catch (err: any) {
+      toast.error(err?.data?.detail || err?.data?.message || 'Invalid or expired OTP code.');
+    }
   };
 
-  const handleResend = () => {
-    setIsResending(true);
-    setTimeout(() => {
-      setIsResending(false);
-      alert('A new 6-digit OTP code has been sent to your email.');
-    }, 1000);
+  const handleResend = async () => {
+    if (!email) {
+      toast.error('Email is missing. Please restart password recovery.');
+      return;
+    }
+    try {
+      const res = await resendOtp({ email }).unwrap();
+      toast.success(res.detail || 'A new 6-digit OTP code has been sent to your email.');
+    } catch (err: any) {
+      toast.error(err?.data?.detail || err?.data?.message || 'Failed to resend OTP.');
+    }
   };
 
   return (
@@ -76,7 +99,8 @@ const VerifyOtpPage = () => {
 
         {/* Description */}
         <p className="text-xs text-description leading-relaxed max-w-[320px] mb-8">
-          Enter the 6-digit security verification code sent to your admin email address.
+          Enter the 6-digit security verification code sent to{' '}
+          <span className="text-white font-medium">{email || 'your email'}</span>.
         </p>
       </div>
 
@@ -102,9 +126,8 @@ const VerifyOtpPage = () => {
               value={otpValue}
               onChange={handleOtpChange}
               placeholder="123456"
-              className={`w-full px-4 py-3.5 bg-[#040812] border ${
-                errors.otp ? 'border-red-500' : 'border-border-color'
-              } rounded-lg text-white text-center text-xl tracking-[0.4em] font-mono placeholder:text-gray-700 placeholder:tracking-[0.4em] focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
+              className={`w-full px-4 py-3.5 bg-[#040812] border ${errors.otp ? 'border-red-500' : 'border-border-color'
+                } rounded-lg text-white text-center text-xl tracking-[0.4em] font-mono placeholder:text-gray-700 placeholder:tracking-[0.4em] focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
             />
           </div>
           {errors.otp && (
@@ -122,7 +145,7 @@ const VerifyOtpPage = () => {
             type="button"
             onClick={handleResend}
             disabled={isResending}
-            className="text-[#0071E3] hover:underline font-medium inline-flex items-center gap-1 focus:outline-none disabled:opacity-50"
+            className="text-[#0071E3] hover:underline font-medium inline-flex items-center gap-1 focus:outline-none disabled:opacity-50 cursor-pointer"
           >
             <RefreshCw className={`w-3 h-3 ${isResending ? 'animate-spin' : ''}`} />
             <span>{isResending ? 'Sending...' : 'Resend Code'}</span>

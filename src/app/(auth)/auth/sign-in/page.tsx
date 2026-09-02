@@ -1,37 +1,41 @@
 'use client';
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock, Eye, EyeOff, Shield, AlertCircle } from 'lucide-react';
+import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import { signInSchema, SignInFormValues } from '@/validation/auth.validation';
+import { useSignInMutation } from '@/redux/features/auth.api';
+import { saveToken } from '@/lib/auth';
 
 const SignInPage = () => {
+  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [signIn, { isLoading }] = useSignInMutation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignInFormValues>({
+  const { register, handleSubmit, formState: { errors } } = useForm<SignInFormValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
-      email: 'admin@ycoin.ai',
-      password: '',
+      email: 'mdmurad.dev2004@gmail.com',
+      password: '12345%%murad',
     },
   });
 
-  const onSubmit = (data: SignInFormValues) => {
-    setIsSubmitting(true);
-    console.log('Sign In Data:', data);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert('Sign in submitted successfully!');
-    }, 1000);
+  const onSubmit = async (data: SignInFormValues) => {
+    try {
+      const res = await signIn(data).unwrap();
+      if (res.access && res.refresh) {
+        await saveToken(res.access, res.refresh);
+      }
+      toast.success(res.message || 'Signed in successfully!');
+      router.push("/")
+    } catch (err: any) {
+      toast.error(err?.data?.message || err?.data?.detail || 'Sign in failed. Please check your credentials.');
+    }
   };
 
   return (
@@ -80,9 +84,8 @@ const SignInPage = () => {
             type="email"
             placeholder="admin@ycoin.ai"
             {...register('email')}
-            className={`w-full px-4 py-3 bg-[#040812] border ${
-              errors.email ? 'border-red-500' : 'border-border-color'
-            } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
+            className={`w-full px-4 py-3 bg-[#040812] border ${errors.email ? 'border-red-500' : 'border-border-color'
+              } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors`}
           />
           {errors.email && (
             <p className="text-red-400 text-xs mt-1.5 flex items-center gap-1">
@@ -114,9 +117,8 @@ const SignInPage = () => {
               type={showPassword ? 'text' : 'password'}
               placeholder="••••••••"
               {...register('password')}
-              className={`w-full px-4 py-3 bg-[#040812] border ${
-                errors.password ? 'border-red-500' : 'border-border-color'
-              } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
+              className={`w-full px-4 py-3 bg-[#040812] border ${errors.password ? 'border-red-500' : 'border-border-color'
+                } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
             />
             <button
               type="button"
@@ -142,12 +144,12 @@ const SignInPage = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isLoading}
           className="w-full py-3.5 px-4 bg-[#0071E3] hover:bg-[#0060C4] active:bg-[#0052B0] text-white font-medium text-sm rounded-lg shadow-lg shadow-[#0071E3]/30 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mt-2"
         >
           <Lock className="w-4 h-4" />
           <span>
-            {isSubmitting ? 'Authenticating...' : 'Login to Admin Dashboard'}
+            {isLoading ? 'Authenticating...' : 'Login to Admin Dashboard'}
           </span>
         </button>
       </form>

@@ -1,25 +1,37 @@
 'use client';
-
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Lock, Eye, EyeOff, Shield, AlertCircle, ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
 import logo from '@/assets/logo.png';
 import { resetPasswordSchema, ResetPasswordFormValues } from '@/validation/auth.validation';
+import { useResetPasswordMutation } from '@/redux/features/auth.api';
 
 const ResetPasswordPage = () => {
+  const searchParams = useSearchParams();
+  const [resetToken, setResetToken] = useState<string>('');
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ResetPasswordFormValues>({
+  const [resetPasswordMutation, { isLoading: isSubmitting }] = useResetPasswordMutation();
+
+  useEffect(() => {
+    const urlToken = searchParams.get('token');
+    const storedToken = typeof window !== 'undefined' ? sessionStorage.getItem('reset_token') : null;
+    if (urlToken) {
+      setResetToken(urlToken);
+    } else if (storedToken) {
+      setResetToken(storedToken);
+    }
+  }, [searchParams]);
+
+  const { register, handleSubmit, formState: { errors } } = useForm<ResetPasswordFormValues>({
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       password: '',
@@ -27,13 +39,22 @@ const ResetPasswordPage = () => {
     },
   });
 
-  const onSubmit = (data: ResetPasswordFormValues) => {
-    setIsSubmitting(true);
-    console.log('Reset Password Data:', data);
-    setTimeout(() => {
-      setIsSubmitting(false);
+  const onSubmit = async (data: ResetPasswordFormValues) => {
+    if (!resetToken) {
+      toast.error('Reset token is missing. Please verify OTP first.');
+      return;
+    }
+    try {
+      const res = await resetPasswordMutation({
+        reset_token: resetToken,
+        new_password: data.password,
+      }).unwrap();
+
+      toast.success(res.detail || 'Password reset successfully!');
       setIsSuccess(true);
-    }, 1000);
+    } catch (err: any) {
+      toast.error(err?.data?.detail || err?.data?.message || 'Password reset failed. Token may be invalid or expired.');
+    }
   };
 
   return (
@@ -104,9 +125,8 @@ const ResetPasswordPage = () => {
                 type={showPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 {...register('password')}
-                className={`w-full px-4 py-3 bg-[#040812] border ${
-                  errors.password ? 'border-red-500' : 'border-border-color'
-                } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
+                className={`w-full px-4 py-3 bg-[#040812] border ${errors.password ? 'border-red-500' : 'border-border-color'
+                  } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
               />
               <button
                 type="button"
@@ -143,9 +163,8 @@ const ResetPasswordPage = () => {
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder="••••••••"
                 {...register('confirmPassword')}
-                className={`w-full px-4 py-3 bg-[#040812] border ${
-                  errors.confirmPassword ? 'border-red-500' : 'border-border-color'
-                } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
+                className={`w-full px-4 py-3 bg-[#040812] border ${errors.confirmPassword ? 'border-red-500' : 'border-border-color'
+                  } rounded-lg text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-[#0071E3] focus:ring-1 focus:ring-[#0071E3] transition-colors pr-10`}
               />
               <button
                 type="button"

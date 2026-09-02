@@ -1,6 +1,4 @@
 'use client';
-
-import React from 'react';
 import { Settings } from 'lucide-react';
 import LegalPoliciesTermsEditor from '@/components/app/LegalPoliciesTermsEditor';
 import AdministratorDetails from '@/components/app/AdministratorDetails';

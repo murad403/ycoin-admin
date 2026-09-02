@@ -2,19 +2,35 @@
 
 import React, { useState } from 'react';
 import { Users } from 'lucide-react';
-import UserStats from '@/components/app/UserStats';
+import { toast } from 'sonner';
 import UserManagementTable from '@/components/app/UserManagementTable';
-import RemoveUserModal, { UserManagementItem } from '@/components/app/RemoveUserModal';
+import RemoveUserModal from '@/components/app/RemoveUserModal';
 import { useLanguage } from '@/context/LanguageContext';
+import { useRetrieveUsersQuery, useDeleteUserMutation } from '@/redux/features/app/app.api';
+import { TUserItem } from '@/redux/features/app/app.type';
 
 const UserManagementPage = () => {
   const { t } = useLanguage();
-  const [selectedUserToDelete, setSelectedUserToDelete] = useState<UserManagementItem | null>(null);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [userToDelete, setUserToDelete] = useState<TUserItem | null>(null);
 
-  const handleConfirmDelete = () => {
-    if (selectedUserToDelete) {
-      console.log('Removed user account:', selectedUserToDelete.email);
-      setSelectedUserToDelete(null);
+  const { data, isLoading } = useRetrieveUsersQuery({ page, search, page_size: 30 });
+  const [deleteUserMutation, { isLoading: isDeleting }] = useDeleteUserMutation();
+
+  const handleSearchChange = (term: string) => {
+    setSearch(term);
+    setPage(1);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!userToDelete) return;
+    try {
+      await deleteUserMutation(userToDelete.id).unwrap();
+      toast.success(`User "${userToDelete.profile_name || userToDelete.email}" removed successfully!`);
+      setUserToDelete(null);
+    } catch (err: any) {
+      toast.error(err?.data?.detail || err?.data?.message || 'Failed to remove user account.');
     }
   };
 
@@ -35,20 +51,39 @@ const UserManagementPage = () => {
         </p>
       </div>
 
-      {/* User Stats Grid */}
-      <UserStats />
+      {/* Stat Card: TOTAL PLATFORM USERS */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+        <div className="bg-[#0A101D] border border-border-color rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col justify-between">
+          <span className="text-[11px] font-semibold tracking-wider uppercase text-description mb-3 block">
+            {t.totalPlatformUsers}
+          </span>
+          <span className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            {data?.users_count ?? 0}
+          </span>
+        </div>
+      </div>
 
       {/* User Management Table */}
       <UserManagementTable
-        onDeleteUser={(user) => setSelectedUserToDelete(user)}
+        users={data?.results || []}
+        isLoading={isLoading}
+        onDeleteUser={(user) => setUserToDelete(user)}
+        searchTerm={search}
+        onSearchChange={handleSearchChange}
+        page={page}
+        onPageChange={(newPage) => setPage(newPage)}
+        hasNextPage={!!data?.next}
+        hasPreviousPage={!!data?.previous}
+        totalUsersCount={data?.users_count || 0}
       />
 
       {/* Remove User Modal */}
       <RemoveUserModal
-        user={selectedUserToDelete}
-        isOpen={!!selectedUserToDelete}
-        onClose={() => setSelectedUserToDelete(null)}
+        user={userToDelete}
+        isOpen={!!userToDelete}
+        onClose={() => setUserToDelete(null)}
         onConfirm={handleConfirmDelete}
+        isDeleting={isDeleting}
       />
     </div>
   );

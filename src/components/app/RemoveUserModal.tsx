@@ -1,22 +1,14 @@
 'use client';
 import { UserX, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-
-export interface UserManagementItem {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  status: 'Active' | 'Pending' | 'Suspended';
-  staked: string;
-  joined: string;
-}
+import { TUserItem } from '@/redux/features/app/app.type';
 
 interface RemoveUserModalProps {
-  user: UserManagementItem | null;
+  user: TUserItem | null;
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  isDeleting?: boolean;
 }
 
 const RemoveUserModal = ({
@@ -24,6 +16,7 @@ const RemoveUserModal = ({
   isOpen,
   onClose,
   onConfirm,
+  isDeleting = false,
 }: RemoveUserModalProps) => {
   const { t } = useLanguage();
 
@@ -38,7 +31,7 @@ const RemoveUserModal = ({
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors focus:outline-none"
+          className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors focus:outline-none cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
@@ -55,7 +48,7 @@ const RemoveUserModal = ({
 
         {/* User Details */}
         <p className="text-xs text-description leading-relaxed mb-8 max-w-[320px] mx-auto">
-          "{user.name}" ({user.email})
+          "{user.profile_name || 'User'}" ({user.email})
         </p>
 
         {/* Action Buttons */}
@@ -63,16 +56,18 @@ const RemoveUserModal = ({
           <button
             type="button"
             onClick={onClose}
-            className="flex-1 py-3 px-4 bg-[#111A2E] hover:bg-[#18233D] border border-border-color text-white font-medium text-sm rounded-xl transition-colors cursor-pointer"
+            disabled={isDeleting}
+            className="flex-1 py-3 px-4 bg-[#111A2E] hover:bg-[#18233D] border border-border-color text-white font-medium text-sm rounded-xl transition-colors cursor-pointer disabled:opacity-50"
           >
             {t.cancel}
           </button>
           <button
             type="button"
             onClick={onConfirm}
-            className="flex-1 py-3 px-4 bg-[#E11D48] hover:bg-[#F43F5E] active:bg-[#BE123C] text-white font-medium text-sm rounded-xl shadow-lg shadow-rose-950/40 transition-all cursor-pointer"
+            disabled={isDeleting}
+            className="flex-1 py-3 px-4 bg-[#E11D48] hover:bg-[#F43F5E] active:bg-[#BE123C] text-white font-medium text-sm rounded-xl shadow-lg shadow-rose-950/40 transition-all cursor-pointer disabled:opacity-50"
           >
-            {t.deleteAccount}
+            {isDeleting ? 'Deleting...' : t.deleteAccount}
           </button>
         </div>
       </div>

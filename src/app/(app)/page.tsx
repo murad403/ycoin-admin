@@ -1,31 +1,31 @@
 'use client';
-
 import React, { useState } from 'react';
-import { LayoutGrid, RefreshCw } from 'lucide-react';
+import { LayoutGrid } from 'lucide-react';
+import { toast } from 'sonner';
 import OverviewStats from '@/components/app/OverviewStats';
 import RecentKnowledgeBaseDocuments from '@/components/app/RecentKnowledgeBaseDocuments';
-import RecentRegisteredUsers, { UserItem } from '@/components/app/RecentRegisteredUsers';
+import RecentRegisteredUsers from '@/components/app/RecentRegisteredUsers';
 import DocumentDetailsModal, { DocumentItem } from '@/components/app/DocumentDetailsModal';
-import LogoutModal from '@/components/shared/LogoutModal';
+import RemoveUserModal from '@/components/app/RemoveUserModal';
 import { useLanguage } from '@/context/LanguageContext';
+import { useDeleteUserMutation } from '@/redux/features/app/app.api';
+import { TUserItem } from '@/redux/features/app/app.type';
 
 const OverviewPage = () => {
   const { t } = useLanguage();
   const [selectedDoc, setSelectedDoc] = useState<DocumentItem | null>(null);
-  const [deleteTargetUser, setDeleteTargetUser] = useState<UserItem | null>(null);
-  const [isRefreshing, setIsRefreshing] = useState(false);
+  const [deleteTargetUser, setDeleteTargetUser] = useState<TUserItem | null>(null);
 
-  const handleRefresh = () => {
-    setIsRefreshing(true);
-    setTimeout(() => {
-      setIsRefreshing(false);
-    }, 800);
-  };
+  const [deleteUserMutation, { isLoading: isDeleting }] = useDeleteUserMutation();
 
-  const handleConfirmDeleteUser = () => {
-    if (deleteTargetUser) {
-      console.log('Deleted user:', deleteTargetUser.email);
+  const handleConfirmDeleteUser = async () => {
+    if (!deleteTargetUser) return;
+    try {
+      await deleteUserMutation(deleteTargetUser.id).unwrap();
+      toast.success(`User "${deleteTargetUser.profile_name || deleteTargetUser.email}" removed successfully!`);
       setDeleteTargetUser(null);
+    } catch (err: any) {
+      toast.error(err?.data?.detail || err?.data?.message || 'Failed to remove user account.');
     }
   };
 
@@ -69,16 +69,12 @@ const OverviewPage = () => {
       />
 
       {/* Delete User Modal */}
-      <LogoutModal
+      <RemoveUserModal
+        user={deleteTargetUser}
         isOpen={!!deleteTargetUser}
         onClose={() => setDeleteTargetUser(null)}
         onConfirm={handleConfirmDeleteUser}
-        type="delete-user"
-        targetUser={
-          deleteTargetUser
-            ? { name: deleteTargetUser.name, email: deleteTargetUser.email }
-            : null
-        }
+        isDeleting={isDeleting}
       />
     </div>
   );

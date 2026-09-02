@@ -4,9 +4,11 @@ import React from 'react';
 import Link from 'next/link';
 import { BookOpen, Users, Wallet, Cpu, ExternalLink } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useRetrieveUsersQuery } from '@/redux/features/app/app.api';
 
 const OverviewStats = () => {
   const { t } = useLanguage();
+  const { data: usersData } = useRetrieveUsersQuery();
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
@@ -41,7 +43,7 @@ const OverviewStats = () => {
         </div>
       </div>
 
-      {/* Card 2: Platform Users */}
+      {/* Card 2: Platform Users (Dynamic API count) */}
       <div className="bg-[#0A101D] border border-border-color rounded-2xl p-5 flex flex-col justify-between hover:border-[#0071E3]/50 transition-colors shadow-sm relative overflow-hidden group">
         <div>
           <div className="flex items-center justify-between mb-4">
@@ -53,7 +55,7 @@ const OverviewStats = () => {
 
           <div className="flex items-baseline justify-between">
             <span className="text-3xl font-extrabold text-white tracking-tight">
-              5
+              {usersData?.users_count ?? 0}
             </span>
             <Link
               href="/user-management"

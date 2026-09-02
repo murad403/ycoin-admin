@@ -118,9 +118,9 @@ const AdministratorDetails = () => {
 
           <div className="space-y-1">
             <h4 className="text-xs font-semibold text-white">{t.profilePhotoLabel}</h4>
-            <p className="text-[11px] text-description">
+            {/* <p className="text-[11px] text-description">
               {t.uploadFileHint}
-            </p>
+            </p> */}
             <label
               htmlFor="avatar-upload"
               className="inline-block text-[11px] font-semibold text-[#0071E3] hover:underline cursor-pointer pt-0.5"
